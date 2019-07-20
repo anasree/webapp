@@ -1,12 +1,14 @@
 pipeline {
-    agent {
-        docker {
-            image 'maven:3-alpine'
-        }
-    }
-    stages {
+    agent any
+
+      tool{
+            maven 'Maven-3.3.9'
+            jdk 'Java-1.8.0_212'
+      }
+
+      stages {
         stage('Build') {
-            steps {
+          steps {
                 sh 'mvn -B -DskipTests clean package'
             }
         }
