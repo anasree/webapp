@@ -1,15 +1,14 @@
 pipeline {
     agent any
 
-    tools {
-            maven 'Maven 3.3.9'
-    }
-
       stages {
         stage('Build') {
           steps {
-                sh 'mvn -version'
+            scripts{
+                    def mvnHome = tool 'Maven 3.3.9'
+                     sh "'${mvnHome}/bin/mvn' -Dintegration-tests.skip=true -Dbuild.number=${targetVersion} clean package"
             }
+          }
         }
     }
 }
